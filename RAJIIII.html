@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday Suji 💖</title>
+<style>
+  body {
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(to bottom right,#ffd1dc,#fff0f5);
+    color:#333; margin:0; padding:20px;
+    display:flex;justify-content:center;align-items:center;min-height:100vh;
+  }
+  .card {
+    width:100%; max-width:640px; background:#fff;
+    border-radius:20px; box-shadow:0 8px 30px rgba(255,0,128,0.2);
+    padding:20px; text-align:center; position:relative; overflow:hidden;
+  }
+  h1{font-size:26px;margin:10px 0;color:#e75480;}
+  .photo img{
+    width:140px;height:140px;border-radius:14px;object-fit:cover;
+    box-shadow:0 6px 18px rgba(0,0,0,0.15);
+  }
+  .count{font-size:20px;margin:10px 0;color:#555;}
+  .q{background:#ffe6ec;border-radius:14px;padding:10px;margin:12px 0;}
+  .opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+  .opt{flex:1 1 calc(45% - 8px);background:#fff;border:2px solid #ffc0cb;
+       border-radius:10px;padding:8px;cursor:pointer;}
+  .opt.selected{background:#ffb6c1;font-weight:600;}
+  .btn{margin-top:16px;padding:10px 16px;border:0;border-radius:10px;
+       background:#e75480;color:#fff;cursor:pointer;font-size:16px;}
+  .result{display:none;margin-top:20px;}
+  .message{font-size:22px;color:#e75480;margin-bottom:6px;}
+  .sub{color:#444;}
+  footer{margin-top:14px;font-size:12px;color:#999;}
+  .heart{position:absolute;animation:floatUp 4s linear infinite;}
+  @keyframes floatUp{
+    0%{transform:translateY(0) scale(0.8);opacity:1;}
+    100%{transform:translateY(-700px) scale(1.2);opacity:0;}
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <audio id="bgm" autoplay loop>
+    <source src="suji_song.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>🎂 Happy Birthday Suji 🎂</h1>
+  <div class="photo"><img src="suji_photo.jpg" alt="Suji"></div>
+  <p>From your Raaji ❤️<br>Answer this short quiz — a surprise awaits!</p>
+
+  <div id="countdown" class="count">Ready? 3</div>
+
+  <div id="quiz" style="display:none;">
+    <div class="q" data-q="q1">
+      <strong>1️⃣ How much do you love Raaji?</strong>
+      <div class="opts">
+        <div class="opt">More than stars ✨</div>
+        <div class="opt">Infinity ♾️</div>
+        <div class="opt">More than chocolates 🍫</div>
+        <div class="opt">More than everything ❤️</div>
+      </div>
+    </div>
+
+    <div class="q" data-q="q2">
+      <strong>2️⃣ If Raaji is beside you right now, what will you do?</strong>
+      <div class="opts">
+        <div class="opt">Hug tightly 🤗</div>
+        <div class="opt">Smile & say "I love you" 💬</div>
+        <div class="opt">Take a selfie 📸</div>
+        <div class="opt">Whisper a sweet wish 💌</div>
+      </div>
+    </div>
+
+    <div class="q" data-q="q3">
+      <strong>3️⃣ This year with Raaji feels:</strong>
+      <div class="opts">
+        <div class="opt">Happy 😊</div>
+        <div class="opt">Blessed 🙏</div>
+        <div class="opt">Excited 💕</div>
+        <div class="opt">Grateful 🙌</div>
+      </div>
+    </div>
+
+    <button class="btn" id="start">Start 💗</button>
+  </div>
+
+  <div id="result" class="result">
+    <div class="message">💖 Happy Birthday Suji 💖</div>
+    <p class="sub">You are my sunshine, my strength, my home.<br>
+    Happy Birthday, my love.<br>— Always yours, Raaji ❤️</p>
+  </div>
+
+  <footer>With endless love — Raaji 💞</footer>
+</div>
+
+<script>
+let t=3;
+const count=document.getElementById('countdown');
+const quiz=document.getElementById('quiz');
+const result=document.getElementById('result');
+const heartsColors=['#ff4d6d','#ff758f','#ff8fa3','#ffb3c1'];
+
+function makeHearts(){
+  const card=document.querySelector('.card');
+  for(let i=0;i<5;i++){
+    const h=document.createElement('div');
+    h.className='heart';
+    h.textContent='❤';
+    h.style.left=Math.random()*90+'%';
+    h.style.bottom='0';
+    h.style.fontSize=(16+Math.random()*20)+'px';
+    h.style.color=heartsColors[Math.floor(Math.random()*heartsColors.length)];
+    h.style.animationDuration=(3+Math.random()*2)+'s';
+    card.appendChild(h);
+    setTimeout(()=>card.removeChild(h),4000);
+  }
+}
+
+setInterval(makeHearts,500);
+
+const iv=setInterval(()=>{
+  t--;
+  if(t>0){count.textContent='Ready? '+t;}
+  else{
+    clearInterval(iv);
+    count.style.display='none';
+    quiz.style.display='block';
+  }
+},1000);
+
+document.querySelectorAll('.opt').forEach(opt=>{
+  opt.onclick=()=>{opt.parentNode.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));opt.classList.add('selected');};
+});
+
+document.getElementById('start').onclick=()=>{
+  quiz.style.display='none';
+  result.style.display='block';
+  for(let i=0;i<30;i++)setTimeout(makeHearts,i*200);
+};
+</script>
+</body>
+</html>
